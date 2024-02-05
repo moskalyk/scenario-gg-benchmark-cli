@@ -50,7 +50,7 @@ const getInferenceWithItem = async (prompt: any, scheduler: any) => {
         parameters: {
           type: 'txt2img',
           qualityBoostScale: 4,
-          scheduler: 'EulerDiscreteScheduler',
+          scheduler: scheduler,
           numSamples: 1,
           prompt: prompt
         }
@@ -74,6 +74,7 @@ const getInferenceStatus = (id: any, seconds: any) => {
 }
 
 const wait = (ms: any) => new Promise((res) => setTimeout(res, ms));
+
 const program = new Command()
 const colors: any = ['magenta', 'greenBright', 'blueBright', 'redBright', 'yellow']  
 
@@ -92,7 +93,6 @@ program
   )
   .version('0.0.1');
 
-
 program
   .command('generate')
   .description('generate images from a prompt')
@@ -100,7 +100,7 @@ program
   .action(async (prompt: any) => {
 
     var schedulerTable = new Table({
-        head: ['Scheduler', 'Time (ms)']
+        head: ['Scheduler', 'Time (s)']
         , colWidths: [30, 30]
     });
 
